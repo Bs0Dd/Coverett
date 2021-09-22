@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
 				return -1;
 			}
 			else if (fil.type == FILEINFO_OK){
-				printf("Ok!\nRemote file: '%s', Size: %d bytes.\n", fil.filename, fil.size);
+				printf("Ok!\nRemote file: '%s', Size: %ld bytes.\n", fil.filename, fil.size);
 				gotfile = 1;
 			}
 		}
