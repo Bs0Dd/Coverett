@@ -22,3 +22,21 @@ Good luck!
 
 * `seplay` - Small Sound effects player for Sound Card. Can search effects names by query.
 
+## Building note
+
+Firstly you need to download a **MUSL** compiler for **RISC-V 64** architecture. You can download it in [this site](https://musl.cc/) or directly by [this link (Linux)](https://musl.cc/riscv64-linux-musl-cross.tgz). Unfortunately Windows version is not available now.  
+Now you need to have **git** on your machine. Write this commands to clone repo:
+```
+git clone https://github.com/Bs0Dd/Coverett.git
+cd Coverett/
+git submodule init
+git submodule update
+```
+
+For building you need to have **CMake**. Type this to generate a makefile:
+```
+CC='<folder with downloaded compiler>/bin/riscv64-linux-musl-gcc' cmake CMakeLists.txt
+```
+And type `make` to start making process.
+
+**It's all!** Compiled files will be placed in directory with cloned repo.
