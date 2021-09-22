@@ -2,7 +2,7 @@
 
 **Coverett** - C library for interacting with **HLAPI** devices of the [**OpenComputers II**](https://github.com/fnuecke/oc2) mod.
 
-![Coverett logo](https://raw.githubusercontent.com/Bs0Dd/Coverett/main/covlogo.bmp)
+![Coverett logo](https://raw.githubusercontent.com/Bs0Dd/Coverett/master/covlogo.bmp)
 
 ## Warning!!!
 
