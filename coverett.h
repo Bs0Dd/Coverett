@@ -1,6 +1,10 @@
 #ifndef COVERETT_H_
 #define COVERETT_H_
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include "coverett-private.h"
 
 
@@ -25,5 +29,9 @@ DEVICE proxyDev(BUS bus, char* id);
 DEVICE findDev(BUS bus, char* name);
 
 LIST getMethods(DEVICE* device);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // COVERETT_H_

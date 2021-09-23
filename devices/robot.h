@@ -1,6 +1,10 @@
 #ifndef ROBOT_H_
 #define ROBOT_H_
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include "../coverett-private.h"
 
 RESULT getEnergyStored(DEVICE* device);
@@ -26,5 +30,9 @@ RESULT turnAsync(DEVICE* device, char* direction);
 RESULT moveSync(DEVICE* device, char* direction);
 
 RESULT turnSync(DEVICE* device, char* direction);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // ROBOT_H_

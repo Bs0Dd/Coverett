@@ -1,6 +1,10 @@
 #ifndef COVERETT_PRIVATE_H_
 #define COVERETT_PRIVATE_H_
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -78,5 +82,9 @@ DEVICE proxyDevByList(BUS bus, LIST list, char* id);
 int existsStatus(DEVICE* dev);
 
 RESULT universalInvoker(DEVICE* dev, char* methodname, int* numvals, char** strvals, int nofpar, int* packord);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // COVERETT_PRIVATE_H_
