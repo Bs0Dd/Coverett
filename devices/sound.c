@@ -15,8 +15,8 @@ RESULT playSound(DEVICE* device, char* name){
 	return universalSound(device, name, "playSound");
 }
 
-LIST findSound(DEVICE* device, char* name){
-	RESULT res = universalSound(device, name, "findSound");
+LIST findSound(DEVICE* device, char* string){
+	RESULT res = universalSound(device, string, "findSound");
 	if (res.type == RESULT_ERROR){
 		return (LIST){LIST_ERROR, NULL, res.errString};
 	}
