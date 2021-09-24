@@ -13,9 +13,9 @@ int main(int argc, char* argv[]){
 		return 0;
 	}
 
-	BUS stdbus = openBus("/dev/hvc0");
+	bus_t stdbus = openBus("/dev/hvc0");
 	
-	DEVICE dev = findDev(stdbus, "file_import_export");
+	device_t dev = findDev(stdbus, "file_import_export");
 	if (!dev.exists){
 		puts("This program requires a File Import/Export Card.");
 		return -1;
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
 	}
 	
 	if (strcmp(lowarg, "-i") == 0){
-		RESULT status = requestImportFile(&dev);
+		result_t status = requestImportFile(&dev);
 		if (status.type == RESULT_BOOLEAN && !status.retNumber){
 			puts("No users present to request file from.");
 			return -1;
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
 	
 		printf("Waiting for file... ");
 	
-		FILEINFO fil;
+		fileinfo_t fil;
 		int gotfile = 0;
 		while (!gotfile){
 			fil = beginImportFile(&dev);
@@ -100,7 +100,7 @@ int main(int argc, char* argv[]){
 		printf("Importing");
 		fflush(stdout);
 		while (1){
-			RESULT data = readImportFile(&dev);
+			result_t data = readImportFile(&dev);
 			if (data.type == RESULT_ERROR){
 				fclose(local);
 				printf("Error while file importing: %s.\n", data.errString);

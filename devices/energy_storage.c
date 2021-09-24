@@ -2,32 +2,32 @@
 #include "../coverett.h"
 
 
-int isEnStor(DEVICE* dev){
+int isEnStor(device_t* dev){
 	if (strcmp(dev->devType, "oc2:computer") != 0){
 		return 0;
 	}
 	return 1;
 }
 
-RESULT commonStNoArgs(DEVICE* dev, char* method){
-	if (!isEnStor(dev)) return (RESULT){RESULT_ERROR, 0, NULL, NULL, "Incorrect device type"};
+result_t commonStNoArgs(device_t* dev, char* method){
+	if (!isEnStor(dev)) return (result_t){RESULT_ERROR, 0, NULL, NULL, "Incorrect device type"};
 	return universalInvoker(dev, method, NULL, NULL, 0, NULL);
 }
 
 
 
-RESULT getStorageEnergyStored(DEVICE* device){
+result_t getStorageEnergyStored(device_t* device){
 	return commonStNoArgs(device, "getEnergyStored");
 }
 
-RESULT getStorageMaxEnergyStored(DEVICE* device){
+result_t getStorageMaxEnergyStored(device_t* device){
 	return commonStNoArgs(device, "getMaxEnergyStored");
 }
 
-RESULT canExtract(DEVICE* device){
+result_t canExtract(device_t* device){
 	return commonStNoArgs(device, "canExtract");
 }
 
-RESULT canReceive(DEVICE* device){
+result_t canReceive(device_t* device){
 	return commonStNoArgs(device, "canReceive");
 }

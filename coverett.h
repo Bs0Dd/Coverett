@@ -13,9 +13,9 @@ extern "C"{
  *
  * @param[in]  path  Path to the bus character special file (default "/dev/hvc0").
  *
- * @return     BUS descriptor or NULL.
+ * @return     bus_t descriptor or NULL.
  */
-BUS openBus(char* path);
+bus_t openBus(char* path);
 
 /**
  * @brief      Close bus descriptor.
@@ -24,7 +24,7 @@ BUS openBus(char* path);
  *
  * @return     Closing status.
  */
-int closeBus(BUS bus);
+int closeBus(bus_t bus);
 
 /**
  * @brief      Get devices list.
@@ -33,14 +33,14 @@ int closeBus(BUS bus);
  *
  * @return     List of type LIST_LIST or LIST_ERROR.
  */
-LIST getList(BUS bus);
+list_t getList(bus_t bus);
 
 /**
  * @brief      Delete list (free memory).
  *
  * @param[in]  list  List for deleting. After function will be LIST_DELETED.
  */
-void deleteList(LIST* list);
+void deleteList(list_t* list);
 
 /**
  * @brief      Get devices ID by list.
@@ -50,7 +50,7 @@ void deleteList(LIST* list);
  *
  * @return     Array of strings with devices ID or NULL.
  */
-char** getDevsId(LIST list, int* totaldevices);
+char** getDevsId(list_t list, int* totaldevices);
 
 /**
  * @brief      Get device names by position in list.
@@ -61,7 +61,7 @@ char** getDevsId(LIST list, int* totaldevices);
  *
  * @return     Array of strings with device names or NULL.
  */
-char** getDevNamesByPos(LIST list, int position, int* totalnames);
+char** getDevNamesByPos(list_t list, int position, int* totalnames);
 
 /**
  * @brief      Get device names by ID.
@@ -72,7 +72,7 @@ char** getDevNamesByPos(LIST list, int position, int* totalnames);
  *
  * @return     Array of strings with device names or NULL.
  */
-char** getDevNamesById(LIST list, char* id, int* totalnames);
+char** getDevNamesById(list_t list, char* id, int* totalnames);
 
 /**
  * @brief      Get device ID by name.
@@ -82,7 +82,7 @@ char** getDevNamesById(LIST list, char* id, int* totalnames);
  *
  * @return     String with device ID or NULL.
  */
-char* getDevIdByName(LIST list, char* name);
+char* getDevIdByName(list_t list, char* name);
 
 /**
  * @brief      Get device proxy by ID.
@@ -90,9 +90,9 @@ char* getDevIdByName(LIST list, char* name);
  * @param[in]  bus  Bus descriptor.
  * @param[in]  id   Device ID.
  *
- * @return     DEVICE structure.
+ * @return     device_t structure.
  */
-DEVICE proxyDev(BUS bus, char* id);
+device_t proxyDev(bus_t bus, char* id);
 
 /**
  * @brief      Get device proxy by ID.
@@ -100,18 +100,18 @@ DEVICE proxyDev(BUS bus, char* id);
  * @param[in]  bus  Bus descriptor.
  * @param[in]  id   Device ID.
  *
- * @return     DEVICE structure.
+ * @return     device_t structure.
  */
-DEVICE findDev(BUS bus, char* name);
+device_t findDev(bus_t bus, char* name);
 
 /**
  * @brief      Get devices list.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
  * @return     List of the type LIST_METHODS or LIST_ERROR.
  */
-LIST getMethods(DEVICE* device);
+list_t getMethods(device_t* device);
 
 #ifdef __cplusplus
 }

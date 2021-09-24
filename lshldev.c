@@ -3,8 +3,8 @@
 #include "coverett.h"
 
 int main(void){
-	BUS stdbus = openBus("/dev/hvc0");
-	LIST devlist = getList(stdbus);
+	bus_t stdbus = openBus("/dev/hvc0");
+	list_t devlist = getList(stdbus);
 	
 	int total;
 	char** ids = getDevsId(devlist, &total);

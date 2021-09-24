@@ -1,13 +1,13 @@
 #include "coverett-private.h"
 #include "coverett.h"
 
-void writeData(BUS bus, char* body){
+void writeData(bus_t bus, char* body){
 	fputc(0, bus); // Start delimiter
 	fputs(body, bus);
 	fputc(0, bus); // End delimiter
 }
 
-char* readData(BUS bus){
+char* readData(bus_t bus){
 	if (fgetc(bus) == 0){
 		int len = 0;
 		int capacity = 1024;
@@ -30,7 +30,7 @@ char* readData(BUS bus){
 	return "\0";
 }
 
-cJSON* request(BUS bus, char* body, char* exptype, int* status){
+cJSON* request(bus_t bus, char* body, char* exptype, int* status){
 	writeData(bus, body);
 	char* rawans = readData(bus);
 	cJSON* ansjson = cJSON_Parse(rawans);
@@ -48,8 +48,8 @@ cJSON* request(BUS bus, char* body, char* exptype, int* status){
 	return cJSON_GetObjectItemCaseSensitive(ansjson, "data");
 }
 
-DEVICE proxyDevByList(BUS bus, LIST list, char* id){
-	DEVICE dev = {0, NULL, NULL, NULL};
+device_t proxyDevByList(bus_t bus, list_t list, char* id){
+	device_t dev = {0, NULL, NULL, NULL};
 	if (list.type != LIST_LIST) return dev;
 	int totalnames;
 	char** names = getDevNamesById(list, id, &totalnames);
@@ -67,8 +67,8 @@ DEVICE proxyDevByList(BUS bus, LIST list, char* id){
 	return dev;
 }
 
-int existsStatus(DEVICE* dev){
-	LIST list = getList(dev->busPtr);
+int existsStatus(device_t* dev){
+	list_t list = getList(dev->busPtr);
 	cJSON* device = NULL;
 	cJSON_ArrayForEach(device, list.body){
 		char* devid = cJSON_GetObjectItemCaseSensitive(device, "deviceId")->valuestring;
@@ -83,8 +83,8 @@ int existsStatus(DEVICE* dev){
 	return 0;
 }
 
-RESULT universalInvoker(DEVICE* dev, char* methodname, int* numvals, char** strvals, int nofpar, int* packord){
-	if (!dev->exists || !existsStatus(dev)) return (RESULT){RESULT_ERROR, 0, NULL, NULL, "Device is no longer available"};
+result_t universalInvoker(device_t* dev, char* methodname, int* numvals, char** strvals, int nofpar, int* packord){
+	if (!dev->exists || !existsStatus(dev)) return (result_t){RESULT_ERROR, 0, NULL, NULL, "Device is no longer available"};
 	cJSON* reqbody = cJSON_CreateObject();
 	cJSON_AddStringToObject(reqbody, "type", "invoke");
 	cJSON* data = cJSON_CreateObject();
@@ -117,19 +117,19 @@ RESULT universalInvoker(DEVICE* dev, char* methodname, int* numvals, char** strv
 	if (resstat == -1){
 		char* errstr = strdup(ans->valuestring);
 		cJSON_Delete(ans);
-		return (RESULT){RESULT_ERROR, 0, NULL, NULL, errstr};
+		return (result_t){RESULT_ERROR, 0, NULL, NULL, errstr};
 	}
 	else if (resstat == -2){
 		cJSON_Delete(ans);
-		return (RESULT){RESULT_ERROR, 0, NULL, NULL, "Incorrect answer"};
+		return (result_t){RESULT_ERROR, 0, NULL, NULL, "Incorrect answer"};
 	}
 	if (resstat == 0 && ans == NULL){
-		return (RESULT){RESULT_VOID, 0, NULL, NULL, NULL};
+		return (result_t){RESULT_VOID, 0, NULL, NULL, NULL};
 	}
 	else if (cJSON_IsNumber(ans)){
 		int retn = ans->valueint;
 		cJSON_Delete(ans);
-		return (RESULT){RESULT_NUMBER, retn, NULL, NULL, NULL};
+		return (result_t){RESULT_NUMBER, retn, NULL, NULL, NULL};
 	}
 	else if (cJSON_IsArray(ans)){
 		if (cJSON_IsNumber(cJSON_GetArrayItem(ans, 0))){
@@ -141,23 +141,23 @@ RESULT universalInvoker(DEVICE* dev, char* methodname, int* numvals, char** strv
 				bytes[i] = cJSON_GetArrayItem(ans, i)->valueint;
 			}
 			cJSON_Delete(ans);
-			return (RESULT){RESULT_BYTES, siz, bytes, NULL, NULL};
+			return (result_t){RESULT_BYTES, siz, bytes, NULL, NULL};
 		}
 		else{
-			return (RESULT){RESULT_LIST, 0, NULL, ans, NULL};	
+			return (result_t){RESULT_LIST, 0, NULL, ans, NULL};	
 		}
 	}
 	else if (cJSON_IsString(ans)){
 		char* rets = strdup(ans->valuestring);
 		cJSON_Delete(ans);
-		return (RESULT){RESULT_STRING, 0, rets, NULL, NULL};
+		return (result_t){RESULT_STRING, 0, rets, NULL, NULL};
 	}
 	else if (cJSON_IsBool(ans)){
 		int retb = cJSON_IsTrue(ans);
 		cJSON_Delete(ans);
-		return (RESULT){RESULT_BOOLEAN, retb, NULL, NULL, NULL};
+		return (result_t){RESULT_BOOLEAN, retb, NULL, NULL, NULL};
 	}
 	else if (cJSON_IsObject(ans)){
-		return (RESULT){RESULT_LIST, 0, NULL, ans, NULL};
+		return (result_t){RESULT_LIST, 0, NULL, ans, NULL};
 	}
 }

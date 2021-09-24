@@ -10,31 +10,31 @@ extern "C"{
 /**
  * @brief      Gets handler slots count.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
  */
-RESULT getHandlerSlotCount(DEVICE* device);
+result_t getHandlerSlotCount(device_t* device);
 
 /**
  * @brief      Gets limit of the items in the handler slot.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  slot    Number of the slot.
  *
- * @return     RESULT structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
  */
-RESULT getHandlerSlotLimit(DEVICE* device, int slot);
+result_t getHandlerSlotLimit(device_t* device, int slot);
 
 /**
  * @brief      Gets info about stack in the handler slot.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  slot    Number of the slot.
  *
- * @return     STACKINFO structure with the type of STACKINFO_OK or STACKINFO_EMPTY or STACKINFO_ERROR.
+ * @return     stackinfo_t structure with the type of STACKINFO_OK or STACKINFO_EMPTY or STACKINFO_ERROR.
  */
-STACKINFO getHandlerStackInSlot(DEVICE* device, int slot);
+stackinfo_t getHandlerStackInSlot(device_t* device, int slot);
 
 #ifdef __cplusplus
 }

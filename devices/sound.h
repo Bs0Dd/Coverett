@@ -10,22 +10,22 @@ extern "C"{
 /**
  * @brief      Attempts to play the specified sound.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  name    Name of the sound to play.
  *
- * @return     RESULT structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
  */
-RESULT playSound(DEVICE* device, char* name);
+result_t playSound(device_t* device, char* name);
 
 /**
  * @brief      Finds the sounds by the string.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  string  String to search.
  *
- * @return     LIST structure with the type of LIST_SOUNDS or LIST_ERROR.
+ * @return     list_t structure with the type of LIST_SOUNDS or LIST_ERROR.
  */
-LIST findSound(DEVICE* device, char* string);
+list_t findSound(device_t* device, char* string);
 
 /**
  * @brief      Gets the sounds names from list.
@@ -35,7 +35,7 @@ LIST findSound(DEVICE* device, char* string);
  *
  * @return     Array of strings with sounds names or NULL.
  */
-char** getSoundsName(LIST sounds, int* totalsounds);
+char** getSoundsName(list_t sounds, int* totalsounds);
 
 #ifdef __cplusplus
 }

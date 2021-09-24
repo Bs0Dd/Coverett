@@ -33,20 +33,20 @@ extern "C"{
 #define STACKINFO_OK 0
 #define STACKINFO_EMPTY 1
 
-typedef FILE* BUS;
+typedef FILE* bus_t;
 
 typedef struct{
 	int type;
 	cJSON* body;
 	char* errString;
-} LIST;
+} list_t;
 
 typedef struct{
 	int exists;
 	const char* devType;
 	const char* devId;
-	BUS busPtr;
-} DEVICE;
+	bus_t busPtr;
+} device_t;
 
 typedef struct{
 	int type;
@@ -54,34 +54,34 @@ typedef struct{
 	char* retString;
 	cJSON* retList;
 	char* errString;
-} RESULT;
+} result_t;
 
 typedef struct{
 	int type;
 	char* filename;
 	size_t size;
 	char* errString;
-} FILEINFO;
+} fileinfo_t;
 
 typedef struct{
 	int type;
 	char* itemId;
 	int itemCount;
 	char* errString;
-} STACKINFO;
+} stackinfo_t;
 
 
-void writeData(BUS bus, char* body);
+void writeData(bus_t bus, char* body);
 
-char* readData(BUS bus);
+char* readData(bus_t bus);
 
-cJSON* request(BUS bus, char* body, char* exptype, int* status);
+cJSON* request(bus_t bus, char* body, char* exptype, int* status);
 
-DEVICE proxyDevByList(BUS bus, LIST list, char* id);
+device_t proxyDevByList(bus_t bus, list_t list, char* id);
 
-int existsStatus(DEVICE* dev);
+int existsStatus(device_t* dev);
 
-RESULT universalInvoker(DEVICE* dev, char* methodname, int* numvals, char** strvals, int nofpar, int* packord);
+result_t universalInvoker(device_t* dev, char* methodname, int* numvals, char** strvals, int nofpar, int* packord);
 
 #ifdef __cplusplus
 }

@@ -12,9 +12,9 @@ int main(int argc, char* argv[]){
 		return 0;
 	}
 
-	BUS stdbus = openBus("/dev/hvc0");
+	bus_t stdbus = openBus("/dev/hvc0");
 	
-	DEVICE dev = findDev(stdbus, "sound");
+	device_t dev = findDev(stdbus, "sound");
 	if (!dev.exists){
 		puts("This program requires a Sound Card.");
 		return -1;
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
 			puts("No search query specified");
 			return -1;
 		}
-		LIST sounds = findSound(&dev, argv[2]);
+		list_t sounds = findSound(&dev, argv[2]);
 		if (sounds.type == LIST_ERROR){
 			printf("Error: %s\n", sounds.errString);
 			return -1;
@@ -44,7 +44,7 @@ int main(int argc, char* argv[]){
 		}
 	}
 	else{
-		RESULT stat = playSound(&dev, argv[1]);
+		result_t stat = playSound(&dev, argv[1]);
 		if (stat.type == RESULT_ERROR){
 			printf("Error: %s\n", stat.errString);
 			return -1;

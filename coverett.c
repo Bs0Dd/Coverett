@@ -1,8 +1,8 @@
 #include "coverett-private.h"
 
 
-BUS openBus(char* path){
-	BUS newbus = fopen(path, "r+");
+bus_t openBus(char* path){
+	bus_t newbus = fopen(path, "r+");
 	if (newbus != NULL){
 		char* cmd = (char*) malloc (19+strlen(path));
 		strcpy(cmd, "stty -F ");
@@ -14,27 +14,27 @@ BUS openBus(char* path){
 	return newbus;
 }
 
-int closeBus(BUS bus){
+int closeBus(bus_t bus){
 	return fclose(bus);
 }
 
-LIST getList(BUS bus){
+list_t getList(bus_t bus){
 	int res;
 	cJSON* ans = request(bus, "{\"type\":\"list\"}", "list", &res);
 	if (res == 0){
-		return (LIST){LIST_LIST, ans};
+		return (list_t){LIST_LIST, ans};
 	}
 	cJSON_Delete(ans);
-	return (LIST){LIST_ERROR, NULL, "Failed to get list"};
+	return (list_t){LIST_ERROR, NULL, "Failed to get list"};
 }
 
-void deleteList(LIST* list){
+void deleteList(list_t* list){
 	if (list->type == LIST_ERROR) return;
 	cJSON_Delete(list->body);
-	*list = (LIST){LIST_DELETED, NULL};
+	*list = (list_t){LIST_DELETED, NULL};
 }
 
-char** getDevsId(LIST list, int* totaldevices){
+char** getDevsId(list_t list, int* totaldevices){
 	if (list.type != LIST_LIST) return NULL;
 	char** idlist = (char**)calloc(cJSON_GetArraySize(list.body), sizeof(char*));
 	*totaldevices = 0;
@@ -46,7 +46,7 @@ char** getDevsId(LIST list, int* totaldevices){
 	return idlist;
 }
 
-char** getDevNamesByPos(LIST list, int position, int* totalnames){
+char** getDevNamesByPos(list_t list, int position, int* totalnames){
 	if (list.type != LIST_LIST) return NULL;
 	if (position+1 > cJSON_GetArraySize(list.body)) return NULL;
 	cJSON* names = cJSON_GetObjectItemCaseSensitive(cJSON_GetArrayItem(list.body, position), "typeNames");
@@ -60,7 +60,7 @@ char** getDevNamesByPos(LIST list, int position, int* totalnames){
 	return nameslist;
 }
 
-char** getDevNamesById(LIST list, char* id, int* totalnames){
+char** getDevNamesById(list_t list, char* id, int* totalnames){
 	if (list.type != LIST_LIST) return NULL;
 	int counter = 0;
 	cJSON* device = NULL;
@@ -74,7 +74,7 @@ char** getDevNamesById(LIST list, char* id, int* totalnames){
 	return NULL;
 }
 
-char* getDevIdByName(LIST list, char* name){
+char* getDevIdByName(list_t list, char* name){
 	cJSON* device = NULL;
 	cJSON_ArrayForEach(device, list.body){
 		cJSON* names = cJSON_GetObjectItemCaseSensitive(device, "typeNames");
@@ -88,34 +88,34 @@ char* getDevIdByName(LIST list, char* name){
 	return NULL;
 }
 
-DEVICE proxyDev(BUS bus, char* id){
-	LIST list = getList(bus);
+device_t proxyDev(bus_t bus, char* id){
+	list_t list = getList(bus);
 	return proxyDevByList(bus, list, id);
 }
 
-DEVICE findDev(BUS bus, char* name){
-	LIST list = getList(bus);
+device_t findDev(bus_t bus, char* name){
+	list_t list = getList(bus);
 	char* id = getDevIdByName(list, name);
 	if (id == NULL){
-		DEVICE dev = {0, NULL, NULL, NULL};
+		device_t dev = {0, NULL, NULL, NULL};
 		return dev;
 	}
 	if (strstr(name, "oc2:") != NULL || strcmp(name, "robot") == 0){
-		DEVICE dev = {1, name, id, bus};
+		device_t dev = {1, name, id, bus};
 		return dev;
 	}
 	return proxyDevByList(bus, list, id);
 }
 
-LIST getMethods(DEVICE* device){ //TODO: Methods parsing
-	if (!existsStatus(device)) return (LIST){LIST_ERROR, NULL};
+list_t getMethods(device_t* device){ //TODO: Methods parsing
+	if (!existsStatus(device)) return (list_t){LIST_ERROR, NULL};
 	char reqbody[65];
 	sprintf(reqbody, "{\"type\":\"methods\",\"data\":\"%s\"}", device->devId);
 	
 	int res;
 	cJSON* ans = request(device->busPtr, reqbody, "methods", &res);
 	if (res == 0){
-		return (LIST){LIST_METHODS, ans};
+		return (list_t){LIST_METHODS, ans};
 	}
-	return (LIST){LIST_ERROR, NULL};
+	return (list_t){LIST_ERROR, NULL};
 }

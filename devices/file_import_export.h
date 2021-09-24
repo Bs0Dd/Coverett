@@ -10,68 +10,68 @@ extern "C"{
 /**
  * @brief      Starts exporting the file.
  *
- * @param[in]  device    Pointer to device proxy (DEVICE structure).
+ * @param[in]  device    Pointer to device proxy (device_t structure).
  * @param[in]  filename  String with the name of the exporting file.
  *
- * @return     RESULT structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
  */
-RESULT beginExportFile(DEVICE* device, char* filename);
+result_t beginExportFile(device_t* device, char* filename);
 
 /**
  * @brief      Sends the data of the exporting file.
  *
- * @param[in]  device      Pointer to device proxy (DEVICE structure).
+ * @param[in]  device      Pointer to device proxy (device_t structure).
  * @param[in]  data        Array of the data bytes.
  * @param[in]  sizeofdata  Size of the data array.
  *
- * @return     RESULT structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
  */
-RESULT writeExportFile(DEVICE* device, char* data, int sizeofdata);
+result_t writeExportFile(device_t* device, char* data, int sizeofdata);
 
 /**
  * @brief      Finishes exporting the file.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
  */
-RESULT finishExportFile(DEVICE* device);
+result_t finishExportFile(device_t* device);
 
 /**
  * @brief      Requests the file for importing.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
  */
-RESULT requestImportFile(DEVICE* device);
+result_t requestImportFile(device_t* device);
 
 /**
  * @brief      Starts importing the file.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     FILEINFO structure with the type of FILEINFO_OK or FILEINFO_NOFILE or FILEINFO_ERROR.
+ * @return     fileinfo_t structure with the type of FILEINFO_OK or FILEINFO_NOFILE or FILEINFO_ERROR.
  */
-FILEINFO beginImportFile(DEVICE* device);
+fileinfo_t beginImportFile(device_t* device);
 
 /**
  * @brief      Gets the data of the importing file.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_BYTES or RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_BYTES or RESULT_VOID or RESULT_ERROR.
  */
-RESULT readImportFile(DEVICE* device);
+result_t readImportFile(device_t* device);
 
 /**
  * @brief      Resets card and file transfer.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
  */
-RESULT resetTransfer(DEVICE* device);
+result_t resetTransfer(device_t* device);
 
 #ifdef __cplusplus
 }

@@ -10,38 +10,38 @@ extern "C"{
 /**
  * @brief      Gets current stored energy in the storage.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
  */
-RESULT getStorageEnergyStored(DEVICE* device);
+result_t getStorageEnergyStored(device_t* device);
 
 /**
  * @brief      Gets maximal stored energy value of the storage.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
  */
-RESULT getStorageMaxEnergyStored(DEVICE* device);
+result_t getStorageMaxEnergyStored(device_t* device);
 
 /**
  * @brief      Gets the status, whether it is possible to extract energy.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
  */
-RESULT canExtract(DEVICE* device);
+result_t canExtract(device_t* device);
 
 /**
  * @brief      Gets the status, whether it is possible to receive energy.
  *
- * @param[in]  device  Pointer to device proxy (DEVICE structure).
+ * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     RESULT structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
  */
-RESULT canReceive(DEVICE* device);
+result_t canReceive(device_t* device);
 
 #ifdef __cplusplus
 }

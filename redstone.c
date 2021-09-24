@@ -9,9 +9,9 @@ int main(int argc, char* argv[]){
 		puts("Usage: redstone <side name> [<value>]");
 		return 0;
 	}
-	BUS stdbus = openBus("/dev/hvc0");
+	bus_t stdbus = openBus("/dev/hvc0");
 	
-	DEVICE dev = findDev(stdbus, "redstone");
+	device_t dev = findDev(stdbus, "redstone");
 	if (!dev.exists){
 		puts("This program requires a Redstone Interface Card or Redstone Interface.");
 		return -1;
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
 		i++;
 	}
 	
-	RESULT in = getRedstoneInput(&dev, side);
+	result_t in = getRedstoneInput(&dev, side);
 	if (in.type == RESULT_ERROR){
 		printf("%s.\n", in.errString);
 		return -1;
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]){
 	}
 	
 	
-	RESULT out= getRedstoneOutput(&dev, side);
+	result_t out= getRedstoneOutput(&dev, side);
 	printf("Input: %d\nOutput: %d\n", in.retNumber, out.retNumber);
 	closeBus(stdbus);
 	return 0;
