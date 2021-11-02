@@ -95,7 +95,7 @@ char* getDevIdByName(list_t list, char* name);
 device_t proxyDev(bus_t bus, char* id);
 
 /**
- * @brief      Get device proxy by ID.
+ * @brief      Get device proxy by name.
  *
  * @param[in]  bus  Bus descriptor.
  * @param[in]  id   Device ID.
@@ -105,7 +105,7 @@ device_t proxyDev(bus_t bus, char* id);
 device_t findDev(bus_t bus, char* name);
 
 /**
- * @brief      Get devices list.
+ * @brief      Get methods list.
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
