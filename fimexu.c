@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "coverett.h"
 #include "devices/file_import_export.h"
 
@@ -97,25 +98,24 @@ int main(int argc, char* argv[]){
 			return -1;
 		}
 
-		printf("Importing");
 		fflush(stdout);
-		while (1){
-			result_t data = readImportFile(&dev);
+		size_t recv = 0;
+		result_t data = readImportFile(&dev);
+		while (data.type != RESULT_VOID){
 			if (data.type == RESULT_ERROR){
 				fclose(local);
 				printf("Error while file importing: %s.\n", data.errString);
 				return -1;
 			}
-			else if (data.type == RESULT_VOID){
-				fclose(local);
-				puts(" Ok!");
-				return 0;
-			}
 			fwrite(data.retString, 1, data.retNumber, local);
 			free(data.retString);
-			putc('.', stdout);
+			recv += data.retNumber;
+			printf("\rImporting... %.2f%%", (double)(recv * 100) / fil.size);
 			fflush(stdout);
+			data = readImportFile(&dev);
 		}
+		
+		fclose(local);
 	}
 	else if (strcmp(lowarg, "-e") == 0){
 		if (argc < 3){
@@ -127,29 +127,31 @@ int main(int argc, char* argv[]){
 			puts("Error opening file.");
 			return -1;
 		}
+		struct stat buf;
+		fstat(fileno(local), &buf);
 		
-		printf("Exporting");
 		fflush(stdout);
 		beginExportFile(&dev, argv[2]);
 		
 		char rbuf[800];
 		size_t readed = fread(rbuf, 1, 800, local);
+		size_t sent = 0;
 		while (readed != 0){
 			writeExportFile(&dev, rbuf, readed);
-			putc('.', stdout);
+			sent += readed;
+			printf("\rExporting... %.2f%%", (double)(sent * 100) / buf.st_size);
 			fflush(stdout);
 			readed = fread(rbuf, 1, 800, local);
 		}
+		
 		fclose(local);
 		finishExportFile(&dev);
-		puts(" Ok!");
-		return 0;
-		
 	}
 	else{
 		printf("Incorrect parameter - '%s'.\n", argv[1]);
 		return -1;
 	}
+	puts("\nDone!");
 	
 	return 0;
 }
