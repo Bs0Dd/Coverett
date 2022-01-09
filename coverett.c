@@ -5,9 +5,7 @@ bus_t openBus(char* path){
 	bus_t newbus = fopen(path, "r+");
 	if (newbus != NULL){
 		char* cmd = (char*) malloc (19+strlen(path));
-		strcpy(cmd, "stty -F ");
-		strcat(cmd, path);
-		strcat(cmd, " raw -echo");
+        sprintf(cmd, "stty -F %s raw -echo", path);
 		system(cmd);
 		free(cmd);
 	}

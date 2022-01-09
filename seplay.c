@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
 	
 	device_t dev = findDev(stdbus, "sound");
 	if (!dev.exists){
-		puts("This program requires a Sound Card.");
+		fputs("This program requires a Sound Card.\n", stderr);
 		return -1;
 	}
 	
@@ -28,12 +28,12 @@ int main(int argc, char* argv[]){
 	
 	if (strcmp(lowarg, "-f") == 0){
 		if (argc < 3){
-			puts("No search query specified");
+			fputs("No search query specified\n", stderr);
 			return -1;
 		}
 		list_t sounds = findSound(&dev, argv[2]);
 		if (sounds.type == LIST_ERROR){
-			printf("Error: %s\n", sounds.errString);
+			fprintf(stderr, "Error: %s\n", sounds.errString);
 			return -1;
 		}
 		int total;
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]){
 	else{
 		result_t stat = playSound(&dev, argv[1]);
 		if (stat.type == RESULT_ERROR){
-			printf("Error: %s\n", stat.errString);
+			fprintf(stderr, "Error: %s\n", stat.errString);
 			return -1;
 		}
 	}

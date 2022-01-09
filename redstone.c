@@ -13,7 +13,7 @@ int main(int argc, char* argv[]){
 	
 	device_t dev = findDev(stdbus, "redstone");
 	if (!dev.exists){
-		puts("This program requires a Redstone Interface Card or Redstone Interface.");
+		fputs("This program requires a Redstone Interface Card or Redstone Interface.\n", stderr);
 		return -1;
 	}
 	
