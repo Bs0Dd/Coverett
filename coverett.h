@@ -172,7 +172,7 @@ list_t getMethods(device_t* device);
  * @param[in]  total    Total number of parameters.
  * @param[in]  order    Parameter insertion order (e.g. {CO_NUMBER, CO_STRING, CO_STRING}).
  *
- * @return     result_t structure with the type of CO_BOOLEAN, CO_LIST, CO_VOID, CO_NUMBER, CO_STRING or CO_BYTES
+ * @return     result_t structure with the type of CO_BOOLEAN, CO_LIST, CO_VOID, CO_NUMBER, CO_STRING or CO_BYTES.
  */
 result_t uniInvoke(device_t* dev, char* method, double* numvals, 
                           char** strvals, int total, cotypes_t* order);

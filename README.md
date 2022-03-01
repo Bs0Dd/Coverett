@@ -6,9 +6,8 @@
 
 ## Warning!!!
 
-The library is in alpha stage, so it can contain a bunch of nasty bugs, glitches and other things.
-In addition, the documentation is not yet ready, but after analyzing the library files and the utilities code (they are attached here as an example), you will probably understand how to work with it.
-Good luck!
+The library is in alpha stage, so it can contain a bunch of nasty bugs, glitches and other things.  
+Documentation available [here](https://github.com/Bs0Dd/Coverett/wiki).
 
 ## Complectation
 
