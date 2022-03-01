@@ -138,7 +138,7 @@ result_t uniInvoke(device_t* dev, char* method, double* numvals, char** strvals,
 			cJSON_AddItemToArray(params, cJSON_CreateString(strvals[pointstr++]));
 		}
 		else if (order[i] == CO_BYTES){ // Add bytes to parameters array, next value in numvals - bytes length
-			int len = numvals[++i];
+			int len = numvals[pointnum++];
 			cJSON* array = cJSON_CreateArray();
 			cJSON_AddItemToArray(params, array);
 			for (int k = 0; k < len; k++){

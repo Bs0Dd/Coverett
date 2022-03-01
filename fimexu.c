@@ -171,7 +171,12 @@ int main(int argc, char* argv[]){
 		size_t sent = 0;
 		if (readed != 0){
 			while (readed != 0){
-				writeExportFile(&dev, rbuf, readed);
+				result_t writed = writeExportFile(&dev, rbuf, readed);
+				if (writed.type == CO_ERROR) {
+					putc('\n',stdout);
+					fprintf(stderr, "Error while file exporting: %s.\n", writed.errString);
+					return -1;
+				}
 				sent += readed;
 				printf("\rExporting... %.2f%%", (double)(sent * 100) / st.st_size);
 				fflush(stdout);
