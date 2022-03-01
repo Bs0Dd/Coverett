@@ -1,4 +1,3 @@
-#include "../coverett-private.h"
 #include "../coverett.h"
 
 
@@ -10,12 +9,12 @@ int isBlockOp(device_t* dev){
 }
 
 result_t commonFunc(device_t* dev, char* side, char* method){
-	if (!isBlockOp(dev)) return (result_t){RESULT_ERROR, 0, NULL, NULL, "Incorrect device type"};
-	if (side == NULL) return universalInvoker(dev, method, NULL, NULL, 0, NULL);
+	if (!isBlockOp(dev)) return (result_t){CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
+	if (side == NULL) return uniInvoke(dev, method, NULL, NULL, 0, NULL);
 	char* strparams[] = {side};
-	int packord[] = {1};
-	result_t res = universalInvoker(dev, method, NULL, strparams, 1, packord);
-	if (res.type == RESULT_ERROR && strcmp(res.errString, "IllegalArgumentException") == 0){
+	cotypes_t packord[] = {CO_STRING};
+	result_t res = uniInvoke(dev, method, NULL, strparams, 1, packord);
+	if (res.type == CO_ERROR && strcmp(res.errString, "IllegalArgumentException") == 0){
 		free(res.errString);
 		res.errString = "Incorrect side";
 	}

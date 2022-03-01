@@ -1,30 +1,30 @@
-#include "../coverett-private.h"
 #include "../coverett.h"
+#include <math.h>
 
 
-result_t universalSound(device_t* dev, char* name, char* method){
-	if (strcmp(dev->devType, "oc2:sound_card") != 0) return (result_t){RESULT_ERROR, 0, NULL, NULL, "Incorrect device type"};
+result_t playSound(device_t* device, char* name, double volume, double pitch){
+	if (strcmp(device->devType, "oc2:sound_card") != 0) return (result_t){CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
 	char* strvals[] = {name};
-	int packord[] = {1};
-	return universalInvoker(dev, method, NULL, strvals, 1, packord);
-}
-
-
-
-result_t playSound(device_t* device, char* name){
-	return universalSound(device, name, "playSound");
+	volume = isnan(volume) ? 1 : volume;
+	pitch = isnan(pitch) ? 1 : pitch;
+	double numvals[] = {volume, pitch};
+	cotypes_t packord[] = {CO_STRING, CO_NUMBER, CO_NUMBER};
+	return uniInvoke(device, "playSound", numvals, strvals, 3, packord);
 }
 
 list_t findSound(device_t* device, char* string){
-	result_t res = universalSound(device, string, "findSound");
-	if (res.type == RESULT_ERROR){
-		return (list_t){LIST_ERROR, NULL, res.errString};
+	if (strcmp(device->devType, "oc2:sound_card") != 0) return (list_t){CO_ERROR, NULL};
+	char* strvals[] = {string};
+	cotypes_t packord[] = {CO_STRING};
+	result_t res = uniInvoke(device, "findSound", NULL, strvals, 1, packord);
+	if (res.type == CO_ERROR){
+		return (list_t){CO_ERROR, NULL, res.errString};
 	}
-	return (list_t){LIST_SOUNDS, res.retList, NULL};
+	return (list_t){CO_SOUNDS, res.retList, NULL};
 }
 
 char** getSoundsName(list_t sounds, int* totalsounds){
-	if (sounds.type != LIST_SOUNDS) return NULL;
+	if (sounds.type != CO_SOUNDS) return NULL;
 	char** nameslist = (char**)calloc(cJSON_GetArraySize(sounds.body), sizeof(char*));
 	*totalsounds = 0;
 	cJSON* name = NULL;

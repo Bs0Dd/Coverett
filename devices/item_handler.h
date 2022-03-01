@@ -5,14 +5,14 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Gets handler slots count.
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getHandlerSlotCount(device_t* device);
 
@@ -22,7 +22,7 @@ result_t getHandlerSlotCount(device_t* device);
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  slot    Number of the slot.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getHandlerSlotLimit(device_t* device, int slot);
 
@@ -32,7 +32,7 @@ result_t getHandlerSlotLimit(device_t* device, int slot);
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  slot    Number of the slot.
  *
- * @return     stackinfo_t structure with the type of STACKINFO_OK or STACKINFO_EMPTY or STACKINFO_ERROR.
+ * @return     stackinfo_t structure with the type of CO_OK or CO_EMPTY or CO_ERROR.
  */
 stackinfo_t getHandlerStackInSlot(device_t* device, int slot);
 

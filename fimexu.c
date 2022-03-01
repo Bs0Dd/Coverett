@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
 	
 	if (strcmp(lowarg, "-i") == 0){
 		result_t status = requestImportFile(&dev);
-		if (status.type == RESULT_BOOLEAN && !status.retNumber){
+		if (status.type == CO_BOOLEAN && !status.retNumber){
 			fputs("No users present to request file from.\n", stderr);
 			return -1;
 		}
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]){
 		int gotfile = 0;
 		while (!gotfile){
 			fil = beginImportFile(&dev);
-			if (fil.type == FILEINFO_ERROR){
+			if (fil.type == CO_ERROR){
 				if (strcmp(fil.errString, "invalid state") == 0){
 					fputs("File transfer canceled.\n", stderr);
 					return -1;
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
 				fprintf(stderr, "Error while waiting for file: %s.\n", fil.errString);
 				return -1;
 			}
-			else if (fil.type == FILEINFO_OK){
+			else if (fil.type == CO_OK){
 				printf("Remote file: '%s', Size: %ld bytes.\n", fil.filename, fil.size);
 				gotfile = 1;
 			}
@@ -116,9 +116,9 @@ int main(int argc, char* argv[]){
 		fflush(stdout);
 		size_t recv = 0;
 		result_t data = readImportFile(&dev);
-		if (data.type != RESULT_VOID){
-			while (data.type != RESULT_VOID){
-				if (data.type == RESULT_ERROR){
+		if (data.type != CO_VOID){
+			while (data.type != CO_VOID){
+				if (data.type == CO_ERROR){
 					fclose(local);
 					putc('\n',stdout);
 					fprintf(stderr, "Error while file importing: %s.\n", data.errString);

@@ -5,14 +5,14 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Gets current stored energy in the robot.
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getEnergyStored(device_t* device);
 
@@ -21,7 +21,7 @@ result_t getEnergyStored(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getEnergyCapacity(device_t* device);
 
@@ -30,7 +30,7 @@ result_t getEnergyCapacity(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getSelectedSlot(device_t* device);
 
@@ -40,7 +40,7 @@ result_t getSelectedSlot(device_t* device);
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  slot    Slot number to set.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t setSelectedSlot(device_t* device, int slot);
 
@@ -50,7 +50,7 @@ result_t setSelectedSlot(device_t* device, int slot);
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  slot    Number of the slot.
  *
- * @return     stackinfo_t structure with the type of STACKINFO_OK or STACKINFO_EMPTY or STACKINFO_ERROR.
+ * @return     stackinfo_t structure with the type of CO_OK or CO_EMPTY or CO_ERROR.
  */
 stackinfo_t getStackInSlot(device_t* device, int slot);
 
@@ -59,7 +59,7 @@ stackinfo_t getStackInSlot(device_t* device, int slot);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getLastActionId(device_t* device);
 
@@ -68,7 +68,7 @@ result_t getLastActionId(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getQueuedActionCount(device_t* device);
 
@@ -78,7 +78,7 @@ result_t getQueuedActionCount(device_t* device);
  * @param[in]  device    Pointer to device proxy (device_t structure).
  * @param[in]  actionId  ID of the action.
  *
- * @return     result_t structure with the type of RESULT_STRING or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_STRING or CO_ERROR.
  */
 result_t getActionResult(device_t* device, int actionId);
 
@@ -88,7 +88,7 @@ result_t getActionResult(device_t* device, int actionId);
  * @param[in]  device     Pointer to device proxy (device_t structure).
  * @param[in]  direction  Name of the direction.
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t moveAsync(device_t* device, char* direction);
 
@@ -98,7 +98,7 @@ result_t moveAsync(device_t* device, char* direction);
  * @param[in]  device     Pointer to device proxy (device_t structure).
  * @param[in]  direction  Name of the direction.
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t turnAsync(device_t* device, char* direction);
 
@@ -108,7 +108,7 @@ result_t turnAsync(device_t* device, char* direction);
  * @param[in]  device     Pointer to device proxy (device_t structure).
  * @param[in]  direction  Name of the direction.
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t moveSync(device_t* device, char* direction);
 
@@ -118,7 +118,7 @@ result_t moveSync(device_t* device, char* direction);
  * @param[in]  device     Pointer to device proxy (device_t structure).
  * @param[in]  direction  Name of the direction.
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t turnSync(device_t* device, char* direction);
 

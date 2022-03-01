@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <ctype.h>
 #include <unistd.h>
@@ -7,8 +8,9 @@
 int main(int argc, char* argv[]){
 	if (argc < 2){
 		puts("Sound Effects PLAYer");
-		puts("Usage: seplay [-f] <effect name or search query>");
+		puts("Usage: seplay [-f] <effect name or search query> [volume, pitch]");
 		puts("       -f - Get effects list by search query");
+        puts("       volume - [0, 1], pitch - [0.5, 2]");
 		return 0;
 	}
 
@@ -32,7 +34,7 @@ int main(int argc, char* argv[]){
 			return -1;
 		}
 		list_t sounds = findSound(&dev, argv[2]);
-		if (sounds.type == LIST_ERROR){
+		if (sounds.type == CO_ERROR){
 			fprintf(stderr, "Error: %s\n", sounds.errString);
 			return -1;
 		}
@@ -44,8 +46,10 @@ int main(int argc, char* argv[]){
 		}
 	}
 	else{
-		result_t stat = playSound(&dev, argv[1]);
-		if (stat.type == RESULT_ERROR){
+		double volume = argc > 2 ? atof(argv[2]) : NAN;
+		double pitch = argc > 3 ? atof(argv[3]) : NAN;
+		result_t stat = playSound(&dev, argv[1], volume, pitch);
+		if (stat.type == CO_ERROR){
 			fprintf(stderr, "Error: %s\n", stat.errString);
 			return -1;
 		}

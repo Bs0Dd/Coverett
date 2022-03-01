@@ -5,7 +5,7 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Attempts to play the specified sound.
@@ -13,9 +13,9 @@ extern "C"{
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  name    Name of the sound to play.
  *
- * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_VOID or CO_ERROR.
  */
-result_t playSound(device_t* device, char* name);
+result_t playSound(device_t* device, char* name, double volume, double pitch);
 
 /**
  * @brief      Finds the sounds by the string.
@@ -23,14 +23,14 @@ result_t playSound(device_t* device, char* name);
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  string  String to search.
  *
- * @return     list_t structure with the type of LIST_SOUNDS or LIST_ERROR.
+ * @return     list_t structure with the type of CO_SOUNDS or CO_ERROR.
  */
 list_t findSound(device_t* device, char* string);
 
 /**
  * @brief      Gets the sounds names from list.
  *
- * @param[in]  list         List of the type LIST_SOUNDS.
+ * @param[in]  list         List of the type CO_SOUNDS.
  * @param      totalsounds  Pointer to an integer where the total number of sounds will be placed.
  *
  * @return     Array of strings with sounds names or NULL.

@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
 	}
 	
 	result_t in = getRedstoneInput(&dev, side);
-	if (in.type == RESULT_ERROR){
+	if (in.type == CO_ERROR){
 		printf("%s.\n", in.errString);
 		return -1;
 	}
@@ -48,8 +48,8 @@ int main(int argc, char* argv[]){
 	}
 	
 	
-	result_t out= getRedstoneOutput(&dev, side);
-	printf("Input: %d\nOutput: %d\n", in.retNumber, out.retNumber);
+	result_t out = getRedstoneOutput(&dev, side);
+	printf("Input: %d\nOutput: %d\n", (int)in.retNumber, (int)out.retNumber);
 	closeBus(stdbus);
 	return 0;
 }

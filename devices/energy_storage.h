@@ -5,14 +5,14 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Gets current stored energy in the storage.
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getStorageEnergyStored(device_t* device);
 
@@ -21,7 +21,7 @@ result_t getStorageEnergyStored(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getStorageMaxEnergyStored(device_t* device);
 
@@ -30,7 +30,7 @@ result_t getStorageMaxEnergyStored(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t canExtract(device_t* device);
 
@@ -39,7 +39,7 @@ result_t canExtract(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t canReceive(device_t* device);
 

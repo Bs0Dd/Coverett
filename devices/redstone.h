@@ -5,7 +5,7 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Gets current signal strength from the input.
@@ -13,7 +13,7 @@ extern "C"{
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  side    Name of the input side.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getRedstoneInput(device_t* device, char* side);
 
@@ -23,7 +23,7 @@ result_t getRedstoneInput(device_t* device, char* side);
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  side    Name of the output side.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t getRedstoneOutput(device_t* device, char* side);
 
@@ -34,7 +34,7 @@ result_t getRedstoneOutput(device_t* device, char* side);
  * @param[in]  side      Name of the output side.
  * @param[in]  strength  Strength value to set.
  *
- * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_VOID or CO_ERROR.
  */
 result_t setRedstoneOutput(device_t* device, char* side, int strength);
 

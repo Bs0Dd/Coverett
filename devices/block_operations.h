@@ -5,7 +5,7 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Tries to break the block.
@@ -13,7 +13,7 @@ extern "C"{
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  side    Name of the side, where block will be breaked.
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t excavate(device_t* device, char* side);
 
@@ -23,7 +23,7 @@ result_t excavate(device_t* device, char* side);
  * @param[in]  device  Pointer to device proxy (device_t structure).
  * @param[in]  side    Name of the side, where block will be placed.
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t place(device_t* device, char* side);
 
@@ -32,7 +32,7 @@ result_t place(device_t* device, char* side);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t durability(device_t* device);
 
@@ -41,7 +41,7 @@ result_t durability(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t repair(device_t* device);
 

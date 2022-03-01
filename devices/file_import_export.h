@@ -5,7 +5,7 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Starts exporting the file.
@@ -13,7 +13,7 @@ extern "C"{
  * @param[in]  device    Pointer to device proxy (device_t structure).
  * @param[in]  filename  String with the name of the exporting file.
  *
- * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_VOID or CO_ERROR.
  */
 result_t beginExportFile(device_t* device, char* filename);
 
@@ -24,7 +24,7 @@ result_t beginExportFile(device_t* device, char* filename);
  * @param[in]  data        Array of the data bytes.
  * @param[in]  sizeofdata  Size of the data array.
  *
- * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_VOID or CO_ERROR.
  */
 result_t writeExportFile(device_t* device, char* data, int sizeofdata);
 
@@ -33,7 +33,7 @@ result_t writeExportFile(device_t* device, char* data, int sizeofdata);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_VOID or CO_ERROR.
  */
 result_t finishExportFile(device_t* device);
 
@@ -42,7 +42,7 @@ result_t finishExportFile(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_BOOLEAN or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BOOLEAN or CO_ERROR.
  */
 result_t requestImportFile(device_t* device);
 
@@ -51,7 +51,7 @@ result_t requestImportFile(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     fileinfo_t structure with the type of FILEINFO_OK or FILEINFO_NOFILE or FILEINFO_ERROR.
+ * @return     fileinfo_t structure with the type of CO_OK or CO_NOFILE or CO_ERROR.
  */
 fileinfo_t beginImportFile(device_t* device);
 
@@ -60,7 +60,7 @@ fileinfo_t beginImportFile(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_BYTES or RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_BYTES or CO_VOID or CO_ERROR.
  */
 result_t readImportFile(device_t* device);
 
@@ -69,7 +69,7 @@ result_t readImportFile(device_t* device);
  *
  * @param[in]  device  Pointer to device proxy (device_t structure).
  *
- * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_VOID or CO_ERROR.
  */
 result_t resetTransfer(device_t* device);
 

@@ -5,7 +5,7 @@
 extern "C"{
 #endif
 
-#include "../coverett-private.h"
+#include "../coverett.h"
 
 /**
  * @brief      Moves items in inventory.
@@ -15,7 +15,7 @@ extern "C"{
  * @param[in]  to      The slot to insert items into.
  * @param[in]  count   The number of items to move.
  *
- * @return     result_t structure with the type of RESULT_VOID or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_VOID or CO_ERROR.
  */
 result_t moveItems(device_t* device, int from, int to, int count);
 
@@ -26,7 +26,7 @@ result_t moveItems(device_t* device, int from, int to, int count);
  * @param[in]  count   The number of items to drop.
  * @param[in]  side    Name of the side, where the items will be dropped.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t dropItems(device_t* device, int count, char* side);
 
@@ -38,7 +38,7 @@ result_t dropItems(device_t* device, int count, char* side);
  * @param[in]  count   The number of items to drop.
  * @param[in]  side    Name of the side, where the items will be dropped.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t dropInto(device_t* device, int into, int count, char* side);
 
@@ -49,7 +49,7 @@ result_t dropInto(device_t* device, int into, int count, char* side);
  * @param[in]  count   The number of items to take.
  * @param[in]  side    Name of the side, where the items will be taken.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t takeItems(device_t* device, int count, char* side);
 
@@ -61,7 +61,7 @@ result_t takeItems(device_t* device, int count, char* side);
  * @param[in]  count   The number of items to take.
  * @param[in]  side    Name of the side, where the items will be taken.
  *
- * @return     result_t structure with the type of RESULT_NUMBER or RESULT_ERROR.
+ * @return     result_t structure with the type of CO_NUMBER or CO_ERROR.
  */
 result_t takeFrom(device_t* device, int into, int count, char* side);
 
