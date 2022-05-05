@@ -1,15 +1,10 @@
 #include "../coverett.h"
 
 
-int isBlockOp(device_t* dev){
-	if (strcmp(dev->devType, "oc2:block_operations_module") != 0){
-		return 0;
-	}
-	return 1;
-}
-
 result_t commonFunc(device_t* dev, char* side, char* method){
-	if (!isBlockOp(dev)) return (result_t){CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
+	if (strcmp(dev->devType, "oc2:block_operations_module") != 0){
+		return (result_t){CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
+	}
 	if (side == NULL) return uniInvoke(dev, method, NULL, NULL, 0, NULL);
 	char* strparams[] = {side};
 	cotypes_t packord[] = {CO_STRING};

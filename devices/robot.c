@@ -5,10 +5,7 @@
 const result_t ROINC = {CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
 
 int isRobot(device_t* dev){
-	if (strcmp(dev->devType, "robot") != 0){
-		return 0;
-	}
-	return 1;
+	return strcmp(dev->devType, "robot") == 0;
 }
 
 result_t commonNoArgs(device_t* dev, char* method){
