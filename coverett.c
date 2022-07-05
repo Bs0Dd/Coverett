@@ -4,10 +4,11 @@
 bus_t openBus(char* path){
 	bus_t newbus = fopen(path, "r+");
 	if (newbus != NULL){
-		char* cmd = (char*) malloc (19+strlen(path));
-        sprintf(cmd, "stty -F %s raw -echo", path);
-		system(cmd);
-		free(cmd);
+		int fd = fileno(newbus);
+		struct termios tcattr;
+		tcgetattr(fd, &tcattr);
+		cfmakeraw(&tcattr);
+		tcsetattr(fd, TCSANOW, &tcattr);
 	}
 	return newbus;
 }
@@ -106,7 +107,7 @@ device_t findDev(bus_t bus, char* name){
 	return proxyDevByList(bus, list, id);
 }
 
-list_t getMethods(device_t* device){ //TODO: Methods parsing
+list_t getMethods(device_t* device){ //TODO: Methods parsing!!!
 	if (!existsStatus(device)) return (list_t){CO_ERROR, NULL};
 	char reqbody[65];
 	sprintf(reqbody, "{\"type\":\"methods\",\"data\":\"%s\"}", device->devId);

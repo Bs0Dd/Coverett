@@ -8,6 +8,7 @@ extern "C"{
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <termios.h>
 #include "cJSON/cJSON.h"
     
 typedef enum TYPES {
