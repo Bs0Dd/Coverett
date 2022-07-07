@@ -107,7 +107,7 @@ device_t findDev(bus_t bus, char* name){
 	return proxyDevByList(bus, list, id);
 }
 
-list_t getMethods(device_t* device){ //TODO: Methods parsing!!!
+list_t getMethods(device_t* device){
 	if (!existsStatus(device)) return (list_t){CO_ERROR, NULL};
 	char reqbody[65];
 	sprintf(reqbody, "{\"type\":\"methods\",\"data\":\"%s\"}", device->devId);
@@ -118,6 +118,71 @@ list_t getMethods(device_t* device){ //TODO: Methods parsing!!!
 		return (list_t){CO_METHODS, ans};
 	}
 	return (list_t){CO_ERROR, NULL};
+}
+
+method_t* parseMethods(list_t list, int* meths){
+	if (list.type != CO_METHODS) {
+		return NULL;
+	}
+	*meths = cJSON_GetArraySize(list.body);
+	if (*meths < 1) {
+		return NULL;
+	}
+	method_t* ret = (method_t*)calloc(*meths, sizeof(method_t));
+	cJSON* val = NULL;
+	cJSON* method = NULL;
+	int i = 0;
+	cJSON_ArrayForEach(method, list.body){
+		val = cJSON_GetObjectItemCaseSensitive(method, "name");
+		ret[i].name = val == NULL ? NULL : strdup(val->valuestring);
+		val = cJSON_GetObjectItemCaseSensitive(method, "returnType");
+		ret[i].returnType = val == NULL ? NULL : strdup(val->valuestring);
+		val = cJSON_GetObjectItemCaseSensitive(method, "description");
+		ret[i].description = val == NULL ? NULL : strdup(val->valuestring);
+		val = cJSON_GetObjectItemCaseSensitive(method, "returnValueDescription");
+		ret[i].returnValueDescription = val == NULL ? NULL : strdup(val->valuestring);
+		cJSON* parms = cJSON_GetObjectItemCaseSensitive(method, "parameters");
+		if (parms != NULL && cJSON_GetArraySize(parms) > 0) {
+			ret[i].paramNum = cJSON_GetArraySize(parms);
+			param_t* par = (param_t*)calloc(cJSON_GetArraySize(parms), sizeof(param_t));
+			cJSON* parm = NULL;
+			int j = 0;
+			cJSON_ArrayForEach(parm, parms){
+				val = cJSON_GetObjectItemCaseSensitive(parm, "name");
+				par[j].name = val == NULL ? NULL : strdup(val->valuestring);
+				val = cJSON_GetObjectItemCaseSensitive(parm, "type");
+				par[j].type = val == NULL ? NULL : strdup(val->valuestring);
+				val = cJSON_GetObjectItemCaseSensitive(parm, "description");
+				par[j].description = val == NULL ? NULL : strdup(val->valuestring);
+				j++;
+			}
+			ret[i].parameters = par;
+		} else{
+			ret[i].parameters = NULL;
+		}
+		i++;
+	}
+	return ret;
+}
+
+void deleteParsedMethods(method_t* methods, int meths){
+	if (methods == NULL) {
+		return;
+	}
+	for (int i = 0; i < meths; i++){
+		if (methods[i].name != NULL) free(methods[i].name);
+		if (methods[i].returnType != NULL) free(methods[i].returnType);
+		if (methods[i].description != NULL) free(methods[i].description);
+		if (methods[i].returnValueDescription != NULL) free(methods[i].returnValueDescription);
+		for (int j = 0; j < methods[i].paramNum; j++){
+			if (methods[i].parameters[j].name != NULL) free(methods[i].parameters[j].name);
+			if (methods[i].parameters[j].type != NULL) free(methods[i].parameters[j].type);
+			if (methods[i].parameters[j].description != NULL) free(methods[i].parameters[j].description);
+		}
+		if (methods[i].parameters != NULL) free(methods[i].parameters);
+	}
+	free(methods);
+    methods = NULL;
 }
 
 result_t uniInvoke(device_t* dev, char* method, double* numvals, char** strvals, int total, cotypes_t* order){

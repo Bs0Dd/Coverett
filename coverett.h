@@ -29,6 +29,21 @@ typedef struct{
 } list_t;
 
 typedef struct{
+	char* name;
+	char* description;
+	char* type;
+} param_t;
+
+typedef struct{
+	char* name;
+	char* returnType;
+	char* description;
+	char* returnValueDescription;
+	int paramNum;
+	param_t* parameters;
+} method_t;
+
+typedef struct{
 	int exists;
 	const char* devType;
 	const char* devId;
@@ -162,6 +177,24 @@ device_t findDev(bus_t bus, char* name);
  * @return     List of the type CO_METHODS or CO_ERROR.
  */
 list_t getMethods(device_t* device);
+
+/**
+ * @brief      Parse methods list.
+ *
+ * @param[in]  list   List of type CO_METHODS.
+ * @param[in]  meths  Pointer to an integer where the total number of methods will be placed.
+ *
+ * @return     Array of method_t structures or NULL.
+ */
+method_t* parseMethods(list_t list, int* meths);
+
+/**
+ * @brief      Delete array of method_t structures (free memory).
+ *
+ * @param[in]  methods  Array of method_t structures.
+ * @param[in]  meths    Pointer to an integer where the total number of methods will be placed.
+ */
+void deleteParsedMethods(method_t* methods, int meths);
 
 /**
  * @brief      Unversal invoker for methods.

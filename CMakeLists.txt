@@ -31,6 +31,8 @@ add_executable(fimexu fimexu.c)
 
 add_executable(seplay seplay.c)
 
+add_executable(ldevmet ldevmet.c)
+
 add_executable(lshldev lshldev.c)
 
 target_link_libraries(redstone coverett)
@@ -38,6 +40,8 @@ target_link_libraries(redstone coverett)
 target_link_libraries(fimexu coverett)
 
 target_link_libraries(seplay coverett)
+
+target_link_libraries(ldevmet coverett)
 
 target_link_libraries(lshldev coverett)
 
