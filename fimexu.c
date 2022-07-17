@@ -43,7 +43,7 @@ int main(int argc, char* argv[]){
 		while (!gotfile){
 			fil = beginImportFile(&dev);
 			if (fil.type == CO_ERROR){
-				if (strcmp(fil.errString, "invalid state") == 0){
+				if (strcmp(fil.errString, "import was canceled") == 0){
 					fputs("File transfer canceled.\n", stderr);
 					return -1;
 				}
