@@ -15,6 +15,8 @@ Documentation available [here](https://github.com/Bs0Dd/Coverett/wiki).
 
 * `fimexu` - File IMport/EXport Utility. Exchanges files between the mod's computer and a real PC (faster than standard `import.lua` and `export.lua`). 
 
+* `ldevmet` - List DEVice METhods. Displays a list of methods supported by the device.
+
 * `lshldev` - Just lists all HLAPI devices on the system. `lsdev.lua` analog.
 
 * `redstone` - Small program for Redstone Interface Block or Redstone Interface Card control.
