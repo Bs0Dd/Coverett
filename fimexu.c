@@ -73,7 +73,7 @@ int main(int argc, char* argv[]){
 		}
 		
 		if (access(fname, F_OK) != -1){
-			printf("File '%s' exists. [O]verwrite/[U]se another name/[C]ancel? ", fname);
+			printf("File '%s' exists.\n[O]verwrite/[U]se another name/[C]ancel? ", fname);
 			fflush(stdout);
 			char ans = tolower(getc(stdin));
 			if (ans == 'o'){
@@ -124,22 +124,22 @@ int main(int argc, char* argv[]){
 					fprintf(stderr, "Error while file importing: %s.\n", data.errString);
 					return -1;
 				}
-				size_t wrt = fwrite(data.retString, 1, data.retNumber, local);
-				if (wrt != data.retNumber){
+				size_t wrt = fwrite(data.retString, 1, (size_t)data.retNumber, local);
+				if (wrt != (size_t)data.retNumber){
 					fclose(local);
 					putc('\n',stdout);
-					perror("Error while file importing");
+					fprintf(stderr, "Error while file importing: expected %d bytes, but only %d bytes were written.", (size_t)data.retNumber, wrt);
 					return -1;
 				}
 				free(data.retString);
-				recv += data.retNumber;
-				printf("\rImporting... %.2f%%", (double)(recv * 100) / fil.size);
+				recv += (size_t)data.retNumber;
+				printf("\rImporting... %.2f%% (%d/%d bytes)", (double)(recv * 100) / fil.size, recv, fil.size);
 				fflush(stdout);
 				data = readImportFile(&dev);
 			}
 		}
 		else{
-			printf("Importing... 100.00%%");
+			printf("Importing... 100.00%% (%d/%d bytes)", fil.size, fil.size);
 		}
 		
 		fclose(local);
@@ -166,25 +166,26 @@ int main(int argc, char* argv[]){
 		fflush(stdout);
 		beginExportFile(&dev, argv[2]);
 		
-		char rbuf[800];
-		size_t readed = fread(rbuf, 1, 800, local);
+		char rbuf[500];
+		size_t readed = fread(rbuf, 1, 500, local);
 		size_t sent = 0;
 		if (readed != 0){
 			while (readed != 0){
-				result_t writed = writeExportFile(&dev, rbuf, readed);
+				usleep(500000);
+				result_t writed = writeExportFile(&dev, rbuf, readed); //ACHTUNG!!! Looks like some values changing to 0 by unknown reason!
 				if (writed.type == CO_ERROR) {
 					putc('\n',stdout);
 					fprintf(stderr, "Error while file exporting: %s.\n", writed.errString);
 					return -1;
 				}
 				sent += readed;
-				printf("\rExporting... %.2f%%", (double)(sent * 100) / st.st_size);
+				printf("\rExporting... %.2f%% (%d/%d bytes)", (double)(sent * 100) / st.st_size, sent, st.st_size);
 				fflush(stdout);
-				readed = fread(rbuf, 1, 800, local);
+				readed = fread(rbuf, 1, 500, local);
 			}
 		}
 		else{
-			printf("Exporting... 100.00%%");
+			printf("Exporting... 100.00%% (%d/%d bytes)", st.st_size, st.st_size);
 		}
 		
 		fclose(local);

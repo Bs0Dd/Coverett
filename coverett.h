@@ -14,7 +14,7 @@ extern "C"{
 typedef enum TYPES {
 	CO_ERROR = -1, //Error status
 	CO_BOOLEAN, CO_LIST, CO_VOID, // Answer types for result_t
-	CO_NUMBER, CO_STRING,  CO_BYTES, // Answer types for result_t / also data types for uniInvoke
+	CO_NUMBER, CO_STRING, CO_BYTES, // Answer types for result_t / also data types for uniInvoke
 	CO_DEVICES, CO_METHODS, CO_SOUNDS, CO_DELETED, // Types for list_t
 	CO_OK, CO_NOFILE, CO_EMPTY // Types for fileinfo_t / stackinfo_t
 } cotypes_t;

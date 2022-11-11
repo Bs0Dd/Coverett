@@ -206,10 +206,10 @@ result_t uniInvoke(device_t* dev, char* method, double* numvals, char** strvals,
 		else if (order[i] == CO_BYTES){ // Add bytes to parameters array, next value in numvals - bytes length
 			int len = numvals[pointnum++];
 			cJSON* array = cJSON_CreateArray();
-			cJSON_AddItemToArray(params, array);
 			for (int k = 0; k < len; k++){
-				cJSON_AddItemToArray(array, cJSON_CreateNumber(strvals[pointstr][k]));
+				cJSON_AddItemToArray(array, cJSON_CreateNumber((double)(strvals[pointstr][k]))); //ACHTUNG!!! Looks like some values changing to 0 by unknown reason!
 			}
+			cJSON_AddItemToArray(params, array);
 			pointstr++;
 		}
 	}
@@ -229,18 +229,16 @@ result_t uniInvoke(device_t* dev, char* method, double* numvals, char** strvals,
 		return (result_t){CO_VOID, 0, NULL, NULL, NULL};
 	}
 	else if (cJSON_IsNumber(ans)){
-		int retn = ans->valueint;
+		int retn = ans->valuedouble;
 		cJSON_Delete(ans);
 		return (result_t){CO_NUMBER, retn, NULL, NULL, NULL};
 	}
 	else if (cJSON_IsArray(ans)){
 		if (cJSON_IsNumber(cJSON_GetArrayItem(ans, 0))){
-			cJSON* byte = NULL;
-			int i = 0;
 			int siz = cJSON_GetArraySize(ans);
 			char* bytes = (char*)malloc(siz);
 			for (int i = 0; i < siz; i++){
-				bytes[i] = cJSON_GetArrayItem(ans, i)->valueint;
+				bytes[i] = cJSON_GetArrayItem(ans, i)->valuedouble;
 			}
 			cJSON_Delete(ans);
 			return (result_t){CO_BYTES, siz, bytes, NULL, NULL};
