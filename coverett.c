@@ -100,11 +100,19 @@ device_t findDev(bus_t bus, char* name){
 		device_t dev = {0, NULL, NULL, NULL};
 		return dev;
 	}
-	if (strstr(name, "oc2r:") != NULL || strcmp(name, "robot") == 0){
-		device_t dev = {1, name, id, bus};
+	int totalnames;
+	char** names = getDevNamesById(list, id, &totalnames);
+	if (names == NULL){
+		device_t dev = {0, NULL, NULL, NULL};
 		return dev;
 	}
-	return proxyDevByList(bus, list, id);
+	for (int i = 0; i < totalnames; i++){
+		if (!strcmp(name, names[i])){
+			device_t dev = {1, name, id, bus};
+		return dev;
+		}
+	}
+	return (device_t){{0, NULL, NULL, NULL}};
 }
 
 list_t getMethods(device_t* device){
