@@ -3,7 +3,8 @@
 const result_t FIEINC = {CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
 
 int isFIECard(device_t* dev){
-	return strcmp(dev->devType, "oc2:file_import_export_card") == 0;
+	//Change name for oc2r:file_import_export_card when LOC is fixed
+	return strcmp(dev->devType, "file_import_export") == 0;
 }
 
 

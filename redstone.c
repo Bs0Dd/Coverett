@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
 	}
 	bus_t stdbus = openBus("/dev/hvc0");
 	
-	device_t dev = findDev(stdbus, "redstone");
+	device_t dev = findDev(stdbus, "oc2r:redstone_interface");
 	if (!dev.exists){
 		fputs("This program requires a Redstone Interface Card or Redstone Interface.\n", stderr);
 		return -1;

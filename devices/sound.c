@@ -3,7 +3,7 @@
 
 
 int isSound(device_t* dev){
-	return strcmp(dev->devType, "oc2:sound_card") == 0;
+	return strcmp(dev->devType, "oc2r:sound_card") == 0;
 }
 
 

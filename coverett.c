@@ -100,7 +100,7 @@ device_t findDev(bus_t bus, char* name){
 		device_t dev = {0, NULL, NULL, NULL};
 		return dev;
 	}
-	if (strstr(name, "oc2:") != NULL || strcmp(name, "robot") == 0){
+	if (strstr(name, "oc2r:") != NULL || strcmp(name, "robot") == 0){
 		device_t dev = {1, name, id, bus};
 		return dev;
 	}

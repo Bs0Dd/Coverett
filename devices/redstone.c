@@ -2,7 +2,7 @@
 
 
 result_t baseFunc(device_t* dev, char* side, char* methname, double* numparams, int nofpar, int* packord){
-	if (strcmp(dev->devType, "oc2:redstone_interface") != 0){
+	if (strcmp(dev->devType, "oc2r:redstone_interface") != 0){
 		return (result_t){CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
 	}
 	char* strparams[] = {side};

@@ -2,7 +2,7 @@
 
 
 result_t commonFunc(device_t* dev, char* side, char* method){
-	if (strcmp(dev->devType, "oc2:block_operations_module") != 0){
+	if (strcmp(dev->devType, "oc2r:block_operations_module") != 0){
 		return (result_t){CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
 	}
 	if (side == NULL) return uniInvoke(dev, method, NULL, NULL, 0, NULL);
