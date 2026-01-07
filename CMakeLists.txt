@@ -4,6 +4,9 @@ set (CMAKE_C_FLAGS "-O2 -s")
 
 project(Coverett C)
 
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY "build/lib/")
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY "build/bin/")
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 file(GLOB DEVICES_SRC
