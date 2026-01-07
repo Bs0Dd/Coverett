@@ -4,7 +4,7 @@
 const result_t IOINC = {CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
 
 int isInvOp(device_t* dev){
-	return strcmp(dev->devType, "oc2:inventory_operations_module") == 0;
+	return strcmp(dev->devType, "oc2r:inventory_operations_module") == 0;
 }
 
 result_t commonItems(device_t* dev, int count, char* side, char* method){

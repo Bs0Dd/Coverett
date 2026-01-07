@@ -16,7 +16,9 @@ int main(int argc, char* argv[]){
 
 	bus_t stdbus = openBus("/dev/hvc0");
 	
+	//Change name for oc2r:file_import_export_card when LOC is fixed
 	device_t dev = findDev(stdbus, "file_import_export");
+	
 	if (!dev.exists){
 		fputs("This program requires a File Import/Export Card.\n", stderr);
 		return -1;

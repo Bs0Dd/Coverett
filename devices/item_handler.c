@@ -4,7 +4,7 @@
 const result_t IHINC = {CO_ERROR, 0, NULL, NULL, "Incorrect device type"};
 
 int isItHand(device_t* dev){
-	return strcmp(dev->devType, "oc2:computer") == 0 || strcmp(dev->devType, "oc2:disk_drive") == 0;
+	return strcmp(dev->devType, "oc2r:computer") == 0 || strcmp(dev->devType, "oc2:disk_drive") == 0;
 }
 
 
