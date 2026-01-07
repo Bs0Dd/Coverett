@@ -1,6 +1,6 @@
 # Coverett
 
-**Coverett** - C library for interacting with **HLAPI** devices of the ~~[**OpenComputers II**](https://github.com/fnuecke/oc2)~~ [**OpenComputers II: Reimagined**](https://github.com/North-Western-Development/oc2r)  mod.
+**Coverett** - C library for interacting with **HLAPI** devices of the [**OpenComputers II: Reimagined**](https://github.com/North-Western-Development/oc2r) mod.
 
 ![Coverett logo](https://raw.githubusercontent.com/Bs0Dd/Coverett/master/covlogo.bmp)
 
@@ -9,7 +9,7 @@
 The library is in alpha stage, so it can contain a bunch of nasty bugs, glitches and other things.  
 Documentation available [here](https://github.com/Bs0Dd/Coverett/wiki).
 
-Original (abandoned) **OpenComputers II** mod is unsupported since version **0.1.0-alpha**.
+Original (abandoned) [**OpenComputers II**](https://github.com/fnuecke/oc2) mod is unsupported since version **0.1.0-alpha**.
 
 ## Complectation
 
