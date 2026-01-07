@@ -168,13 +168,12 @@ int main(int argc, char* argv[]){
 		fflush(stdout);
 		beginExportFile(&dev, argv[2]);
 		
-		char rbuf[500];
-		size_t readed = fread(rbuf, 1, 500, local);
+		char rbuf[1024];
+		size_t readed = fread(rbuf, 1, 1024, local);
 		size_t sent = 0;
 		if (readed != 0){
 			while (readed != 0){
-				usleep(500000);
-				result_t writed = writeExportFile(&dev, rbuf, readed); //ACHTUNG!!! Looks like some values changing to 0 by unknown reason!
+				result_t writed = writeExportFile(&dev, rbuf, readed);
 				if (writed.type == CO_ERROR) {
 					putc('\n',stdout);
 					fprintf(stderr, "Error while file exporting: %s.\n", writed.errString);
@@ -183,7 +182,7 @@ int main(int argc, char* argv[]){
 				sent += readed;
 				printf("\rExporting... %.2f%% (%d/%d bytes)", (double)(sent * 100) / st.st_size, sent, st.st_size);
 				fflush(stdout);
-				readed = fread(rbuf, 1, 500, local);
+				readed = fread(rbuf, 1, 1024, local);
 			}
 		}
 		else{
