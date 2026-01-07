@@ -3,7 +3,7 @@
 
 
 int isSound(device_t* dev){
-	return strcmp(dev->devType, "oc2r:sound_card") == 0;
+	return strcmp(dev->devType, "sound") == 0; // Another LOC? Change back to "oc2r:sound_card" later
 }
 
 
