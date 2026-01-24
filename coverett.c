@@ -112,7 +112,7 @@ device_t findDev(bus_t bus, char* name){
 		return dev;
 		}
 	}
-	return (device_t){{0, NULL, NULL, NULL}};
+	return (device_t){0, NULL, NULL, NULL};
 }
 
 list_t getMethods(device_t* device){
@@ -269,3 +269,4 @@ result_t uniInvoke(device_t* dev, char* method, double* numvals, char** strvals,
 		return (result_t){CO_LIST, 0, NULL, ans, NULL};
 	}
 }
+
