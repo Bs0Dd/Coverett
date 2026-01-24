@@ -10,6 +10,8 @@ extern "C"{
 #include <string.h>
 #include <termios.h>
 #include "cJSON/cJSON.h"
+
+#define CO_NULL_DEVICE (device_t){0, NULL, NULL,NULL}
     
 typedef enum TYPES {
 	CO_ERROR = -1, //Error status
