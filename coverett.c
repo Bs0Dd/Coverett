@@ -96,23 +96,18 @@ device_t proxyDev(bus_t bus, char* id){
 device_t findDev(bus_t bus, char* name){
 	list_t list = getList(bus);
 	char* id = getDevIdByName(list, name);
-	if (id == NULL){
-		device_t dev = {0, NULL, NULL, NULL};
-		return dev;
-	}
+	device_t dev = CO_NULL_DEVICE;
+	if (id == NULL) return dev;
 	int totalnames;
 	char** names = getDevNamesById(list, id, &totalnames);
-	if (names == NULL){
-		device_t dev = {0, NULL, NULL, NULL};
-		return dev;
-	}
+	if (names == NULL) return dev;
 	for (int i = 0; i < totalnames; i++){
 		if (!strcmp(name, names[i])){
-			device_t dev = {1, name, id, bus};
-		return dev;
+			dev = (device_t){1, name, id, bus};
+			return dev;
 		}
 	}
-	return (device_t){0, NULL, NULL, NULL};
+	return CO_NULL_DEVICE;
 }
 
 list_t getMethods(device_t* device){
